@@ -10,9 +10,11 @@ const Login = () => {
 
   const handleSubmit= (e: SyntheticEvent)=>{
     e.preventDefault();
+
+    let form: any = e.target;
     axios.post("/api/auth/login",{
-        email: e.target.email.value,
-        username: e.target.username.value
+        email: form.email.value,
+        username: form.username.value
     })
     .then(({data})=>{
         save(data);

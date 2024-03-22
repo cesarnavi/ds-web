@@ -11,10 +11,12 @@ const Login = () => {
   const handleSubmit= (e: SyntheticEvent)=>{
     e.preventDefault();
     e.stopPropagation();
+  
+    let form: any = e.target;
     axios.post("/api/users",{
-        email: e.target.email.value,
-        username: e.target.username.value,
-        role: e.target.role.value
+        email:form.email.value,
+        username:form.username.value,
+        role:form.role.value
     })
     .then(({data})=>{
         save(data);
@@ -26,7 +28,7 @@ const Login = () => {
    useEffect(() => {
     document.title = "Iniciar";
     if(session){
-        router.push("/biblioteca")
+        window.location.href ="/"
     }
   }, [session]);
 

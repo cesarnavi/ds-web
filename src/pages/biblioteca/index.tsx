@@ -36,7 +36,7 @@ export default function Home() {
           {/* Folders / Topics */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 px-4">
             { topics &&
-              topics?.map((t: any) => <Folder folder={t} />)
+              topics?.map((t: any,k:number) => <Folder key={k+1} folder={t} />)
               }
           </div>
         </div>

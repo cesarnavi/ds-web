@@ -39,7 +39,7 @@ function Header() {
         <button onClick={handleLogout} className="rounded bg-red-500 p-2 h-10 text-white">Salir</button>
       <div className="p-2 mx-4 flex flex-col justify-center items-center">
         <div className="h-8 w-8 cursor-pointer overflow-hidden rounded-full">
-          <FaUserCircle className="h-full w-full" />
+          <FaUserCircle size={30}  />
         </div>
         Bienvenido, {"Cesar"}
       

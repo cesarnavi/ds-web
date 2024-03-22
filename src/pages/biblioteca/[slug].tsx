@@ -2,11 +2,13 @@ import PageHeader from "@/components/PageHeader";
 import useSWR from "swr";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { fileIcons } from "@/components/icons";
+
 import Header from "@/components/Header";
 import { useSession } from "@/hooks/use-session";
 import { useEffect } from "react";
 import { ImImage, ImYoutube } from "react-icons/im";
+import { AiFillFile } from "react-icons/ai";
+
 
 
 const fetcher = (path: string) =>
@@ -50,7 +52,7 @@ export default function Topic() {
                           ? <ImImage /> 
                           : file.item_type == "VIDEO_URL" 
                           ? <ImYoutube />
-                          : fileIcons["any"]
+                          : <AiFillFile />
                         return <tr 
                             key={file._id}
                             onDoubleClick={() => openFile(file.file_link)} 
