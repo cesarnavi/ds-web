@@ -21,14 +21,7 @@ function PageHeader({ headerName }: { headerName: string }) {
       </div>
       <div className="flex justify-between">
       <div className="flex flex-wrap items-center gap-2">
-        <button className="flex items-center space-x-2 rounded-lg border border-textC px-4 py-1 text-sm font-medium">
-          <span>Temática</span>
-          <AiFillCaretDown size={12} />
-        </button>
-        <button className="flex items-center space-x-2 rounded-lg border border-textC px-4 py-1 text-sm font-medium">
-          <span>Tipo</span>
-          <AiFillCaretDown size={12} />
-        </button>
+       
       </div>
       <div className="flex flex-wrap items-end gap-2">
         { session && session?.role == "WRITER"  && <AddItemButton disabled={false}/>}
