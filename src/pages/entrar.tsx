@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Login = () => {
   const router = useRouter();
-  const { session, save } = useSession();
+  const { session, setSession } = useSession();
 
   const handleSubmit= (e: SyntheticEvent)=>{
     e.preventDefault();
@@ -17,7 +17,7 @@ const Login = () => {
         username: form.username.value
     })
     .then(({data})=>{
-        save(data);
+        setSession(data);
         router.push("/biblioteca")
     }).catch(()=>window.alert("Credenciales incorrectas"))
   }
@@ -83,9 +83,9 @@ const Login = () => {
                   <svg
                     className="h-6 w-6"
                     fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
@@ -105,9 +105,9 @@ const Login = () => {
               <svg
                 className="h-6 w-6"
                 fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >

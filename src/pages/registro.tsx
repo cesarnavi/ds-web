@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Login = () => {
   const router = useRouter();
-  const { session, save } = useSession();
+  const { session, setSession } = useSession();
 
   const handleSubmit= (e: SyntheticEvent)=>{
     e.preventDefault();
@@ -19,7 +19,7 @@ const Login = () => {
         role:form.role.value
     })
     .then(({data})=>{
-        save(data);
+      setSession(data);
         router.push("/biblioteca")
     }).catch((err)=>window.alert(err.response.data.message || "error"))
   }
@@ -93,14 +93,14 @@ const Login = () => {
                 type="submit"
                 className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in"
               >
-                <span className="mr-2 uppercase">Entrar</span>
+                <span className="mr-2 uppercase">Registrarse</span>
                 <span>
                   <svg
                     className="h-6 w-6"
                     fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
@@ -120,9 +120,9 @@ const Login = () => {
               <svg
                 className="h-6 w-6"
                 fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >

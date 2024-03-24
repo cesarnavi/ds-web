@@ -1,19 +1,18 @@
 import { useSession } from "@/hooks/use-session";
-import axios from "axios";
 import useSWR from "swr";
 import Folder from "@/components/Folder";
 import PageHeader from "@/components/PageHeader";
 import { useEffect } from "react";
 import Header from "@/components/Header";
+import AxiosApiInstance from "@/services/API";
 
 const fetcher = (path: string) =>
-  axios.get(path).then((res) => res.data);
+  AxiosApiInstance.get(path).then((res) => res.data);
 
 export default function Home() {
   const { session } = useSession();
   const { data: topics } = useSWR("/api/topics", fetcher);
   
- 
   useEffect(()=>{
     if(!session){
       window.location.href = "/entrar"
@@ -23,8 +22,6 @@ export default function Home() {
   if(!session){
     return <></>
   }
-
-  console.log(topics)
 
   return (
     <>

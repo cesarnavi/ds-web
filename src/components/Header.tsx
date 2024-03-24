@@ -1,24 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
-// import { signIn, useSession } from "next-auth/react";
-// import UserInfo from "./UserInfo";
 import Link from "next/link";
 // import Search from "./Search";
 import { FaUserCircle } from "react-icons/fa";
-import { useRouter } from "next/router";
 import { useSession } from "@/hooks/use-session";
 
 function Header() {
-  const { session, clear } = useSession();
+  const { session, removeSession } = useSession();
 
-  const handleLogout =()=>{
-    clear();
-    window.location.href = "/entrar"
-  }
+  const handleLogout = () => {
+    removeSession();
+    window.location.href = "/entrar";
+  };
 
-  if(!session){
-    return <></>
+  if (!session) {
+    return <></>;
   }
 
   return (
@@ -35,17 +32,22 @@ function Header() {
           />
         </Link>
       </div>
+      <p> Bienvenido, {session.username} </p>
       <div className="flex items-center">
-        <button onClick={handleLogout} className="rounded bg-red-500 p-2 h-10 text-white">Salir</button>
-      <div className="p-2 mx-4 flex flex-col justify-center items-center">
-        <div className="h-8 w-8 cursor-pointer overflow-hidden rounded-full">
-          <FaUserCircle size={30}  />
+        <div className="p-2 mx-4 flex flex-col justify-center items-center">
+          <div className="flex">
+            <p className="font-semibold text-xs px-4 rouded-full border-2 py-2 mx-2">
+              {session.role}
+            </p>
+            <button
+              onClick={handleLogout}
+              className="rounded bg-red-500 p-2 h-10 text-white"
+            >
+              Salir
+            </button>
+          </div>
         </div>
-        Bienvenido, {"Cesar"}
-      
       </div>
-      </div>
-      
     </div>
   );
 }

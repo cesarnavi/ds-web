@@ -8,21 +8,20 @@ import { useSession } from "@/hooks/use-session";
 import { useEffect } from "react";
 import { ImImage, ImYoutube } from "react-icons/im";
 import { AiFillFile } from "react-icons/ai";
-
-
+import AxiosApiInstance from "@/services/API";
 
 const fetcher = (path: string) =>
-  axios.get(path).then((res) => res.data);
+  AxiosApiInstance.get(path).then((res) => res.data);
 
 export default function Topic() {
   const router = useRouter();
   const { session } = useSession();
   const { data: topic } = useSWR("/api/topics/" + router?.query?.slug, fetcher);
-  const openFile = (fileLink: string) => {
+  const openFile = (id: string) => {
     if(session.role == "WRITER"){
       return;
     }
-    window.open(fileLink, "_blank");
+    window.open(`${process.env.API_BASE_URL}/items/${id}/file?_=${session.token}`, "_blank");
   };
 
   useEffect(()=>{
@@ -55,7 +54,7 @@ export default function Topic() {
                           : <AiFillFile />
                         return <tr 
                             key={file._id}
-                            onDoubleClick={() => openFile(file.file_link)} 
+                            onDoubleClick={() => openFile(file._id)} 
                             className="border-b-200 space-y-1 border hover:bg-blue-100 cursor-pointer"
                         >
                             <td className="py-3 px-4">
