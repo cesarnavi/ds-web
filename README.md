@@ -8,7 +8,7 @@ A basic file library with the following features:
  - Upload and delete files (txt, images and links)
  - Search items and topics
 
-Demo: 
+Demo:  https://ds-web-mu.vercel.app
 Install all the required dependencies with
 ```bash
 npm run dev
