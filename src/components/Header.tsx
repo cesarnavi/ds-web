@@ -73,14 +73,14 @@ function Header() {
           search && <div className="bg-slate-300 w-72 md:w-96 fixed rounded-lg overflow-y-auto max-h-80">
             <ul className="divide-y-2">
             { topicsSearch && topicsSearch.length > 0 && <> <li className="py-1 px-4 font-extralight text-sm">Temáticas</li>
-              {topicsSearch.map((a:any)=> <li onClick={()=>openTopic(a.slug)} className="flex items-center hover:cursor-pointer py-1 px-4 hover:bg-blue-400">
+              {topicsSearch.map((a:any)=> <li key={a.slug} onClick={()=>openTopic(a.slug)} className="flex items-center hover:cursor-pointer py-1 px-4 hover:bg-blue-400">
                 <Image   src={a.image_url}
             width={30}
             height={10} alt="tematica"/> &nbsp; {a.name}</li>)
                 }
                 </>}
              { itemsSearch && itemsSearch.length > 0 && <> <li className="py-1 px-4 font-extralight text-sm">Elementos</li>
-              {itemsSearch.map((a:any)=> <li onClick={()=>openFile(a._id)} className="flex items-center hover:cursor-pointer py-1 px-4 hover:bg-blue-400">
+              {itemsSearch.map((a:any)=> <li key={a._id} onClick={()=>openFile(a._id)} className="flex items-center hover:cursor-pointer py-1 px-4 hover:bg-blue-400">
                 {getItem(a)} &nbsp; {a.item_name}</li>)
                 }
                 </>}
