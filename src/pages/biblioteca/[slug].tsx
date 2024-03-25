@@ -1,6 +1,5 @@
 import PageHeader from "@/components/PageHeader";
-import useSWR from "swr";
-import axios from "axios";
+import useSWR, { mutate } from "swr";
 import { useRouter } from "next/router";
 
 import Header from "@/components/Header";
@@ -9,6 +8,7 @@ import { useEffect } from "react";
 import { ImImage, ImYoutube } from "react-icons/im";
 import { AiFillFile } from "react-icons/ai";
 import AxiosApiInstance from "@/services/API";
+import { TiDeleteOutline } from "react-icons/ti";
 
 const fetcher = (path: string) =>
   AxiosApiInstance.get(path).then((res) => res.data);
@@ -16,13 +16,24 @@ const fetcher = (path: string) =>
 export default function Topic() {
   const router = useRouter();
   const { session } = useSession();
-  const { data: topic } = useSWR("/api/topics/" + router?.query?.slug, fetcher);
+  const { data: topic, mutate } = useSWR("/api/topics/" + router?.query?.slug, fetcher);
   const openFile = (id: string) => {
     if(session.role == "WRITER"){
       return;
     }
     window.open(`${process.env.API_BASE_URL}/items/${id}/file?_=${session.token}`, "_blank");
   };
+
+  const deleteFile =(id: string)=>{
+    if(session.role !== "ADMIN"){
+      return;
+    }
+    AxiosApiInstance.delete("/api/items/"+id)
+    .then(()=>{
+      mutate();
+    })
+    .catch(()=>window.alert("Error eliminando elemento, contacte a soporte"))
+  }
 
   useEffect(()=>{
     if(!session){
@@ -37,12 +48,16 @@ export default function Topic() {
         <div className="w-full">
             <table className="w-full bg-white shadow-md rounded-xl table">
             <thead>
-                <tr className="bg-blue-gray-100 text-gray-700">
+              <tr className="bg-blue-gray-100 text-gray-700">
                 <th className="py-3 px-4 text-left">Nombre</th>
                 <th className="py-3 px-4 text-left">Autor</th>
-                <th className="py-3 px-4 text-left">Fecha modificacion</th>
-               
-                </tr>
+                <th className="py-3 px-4 text-left">
+                  Fecha modificacion
+                </th>
+                { session && session.role == "ADMIN" && <th className="py-3 px-4 text-left">
+                  Acciones</th>
+                }
+              </tr>
             </thead>
             <tbody className="text-blue-gray-900">
             { topic &&
@@ -69,6 +84,12 @@ export default function Topic() {
                             </td>
                             <td className="py-3 px-4">{file.author ?? ""}</td>
                             <td className="py-3 px-4">{new Date(file.updated_at).toLocaleString()}</td>
+                            { session && session.role == "ADMIN" &&  <td className="py-3 px-4">
+                                <span onClick={()=>deleteFile(file._id)} >
+                                  <TiDeleteOutline size={24} color="red" />
+                                </span>
+                              </td>
+                            }
                         </tr>
                     })
                 }
