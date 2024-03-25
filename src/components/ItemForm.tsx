@@ -199,7 +199,7 @@ function ItemForm({
                 {/* Impirmimos todos los tipos de datos disponibles */}
                 { topic.content_types && topic.content_types.map((t: any) => (
                     <button
-                        key={tab.id}
+                        key={t.id}
                         onClick={() => setTab(t)}
                         type="button"
                         className={`${
